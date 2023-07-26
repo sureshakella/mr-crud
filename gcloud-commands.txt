@@ -1,0 +1,16 @@
+docker run --rm -e CONSUL_ADDR=https://10.16.110.10:8501 -e ENVCONSUL_ARGS="-consul-ssl -consul-ssl-verify=false -consul-ssl-ca-cert=/home/rarmstrong/mldev-environment/consul-vault/config/ca.pem -consul-ssl-cert=/home/rarmstrong/mldev-environment/consul-vault/config/consul/server-cert.pem -consul-ssl-key=/home/rarmstrong/mldev-environment/consul-vault/config/consul/server-key.pem -vault-ssl -vault-ssl-verify=false -vault-ssl-ca-cert=/home/rarmstrong/mldev-environment/consul-vault/config/ca.pem -vault-ssl-cert=/home/rarmstrong/mldev-environment/consul-vault/config/vault/server-cert.pem -vault-ssl-key=/home/rarmstrong/mldev-environment/consul-vault/config/vault/server-key.pem" -e VAULT_ADDR=https://10.16.110.10:8200 -e VAULT_TOKEN="s.WGLUtKMFkC0r1ZfzjOHcyA77" -e EXEC_MEM=30G -e MAX_EXEC=40 -e EXEC_CORES=4 -e EXEC_MEM_OVERHEAD=30G -e POOL=root.mldev.airflow -v /home:/home docker.overstock.com/ml/reranking-similarity-recs:0.1.12-bbb-SNAPSHOT-1 impute-bbb-pwf --date 2023/07/18 --bbb-products-path /user/sakella/sakella_output/reranking/bbb_products/
+
+
+
+
+gcloud config configurations create emulator
+gcloud config set auth/disable_credentials true
+gcloud config set project test-project
+gcloud config set api_endpoint_overrides/spanner http://localhost:9020/
+gcloud spanner instances create omegatrade-instance --config=emulator-config --description="OmegaTrade Instance - Cloud Spanner emulator" --nodes=3
+gcloud spanner databases create omegatrade-db --instance omegatrade-instance
+
+--gcloud auth application-default login --impersonate-service-account SERVICE_ACCT_EMAIL
+--gcloud auth application-default login
+
+gcloud spanner instance-configs list
